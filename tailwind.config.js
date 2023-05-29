@@ -1,17 +1,5 @@
-const labelsClasses = ['indigo', 'gray', 'green', 'blue', 'red', 'purple']
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge: {
-    content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-    // Because we made a dynamic class with the label we need to add those clases
-    // to the safe list so the purge does not remove that
-    safelist: [
-      ...labelsClasses.map((lbl) => `bg-${lbl}-500`),
-      ...labelsClasses.map((lbl) => `bg-${lbl}-200`),
-      ...labelsClasses.map((lbl) => `text-${lbl}-400`),
-    ],
-  },
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -19,13 +7,33 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      keyframes: {
+        overlayShow: {
+          from: {
+            opacity: '0',
+          },
+          to: {
+            opacity: '1',
+          },
+        },
+        contentShow: {
+          from: {
+            opacity: '0',
+            transform: 'translate(-50%, -48%) scale(0.96)',
+          },
+          to: {
+            opacity: '1',
+            transform: 'translate(-50%, -50%) scale(1)',
+          },
+        },
       },
-      gridTemplateColumns: {
-        '1/5': '1fr 5fr',
+      animation: {
+        overlayShow: 'overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+        contentShow: 'contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+      },
+      boxShadow: {
+        modal:
+          'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
       },
     },
   },

@@ -1,5 +1,6 @@
 'use client'
 
+import '../lib/dayjs'
 import { ReactNode } from 'react'
 import './globals.css'
 import { Roboto } from 'next/font/google'
